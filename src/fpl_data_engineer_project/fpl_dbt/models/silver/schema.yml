@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  - name: silver_matches
+    description: "put constraints on columns to ensure data quality. The primary key is match_id."
+    columns:
+    
+      - name: match_id
+        tests:
+          - not_null
+          - unique
+
+      - name: gameweek
+        tests:
+          - not_null
+
+      - name: home_team_id
+        tests:
+          - not_null
+
+      - name: away_team_id
+        tests:
+          - not_null
+
+      - name: finished
+        tests:
+          - not_null
+
+      - name: season_id
+        tests:
+          - not_null
+
+      - name: season_key
+        tests:
+          - not_null
+
+    
+  
+  - name: silver_playermatchstats
+    description: "put constraints on columns to ensure data quality. The primary key is a composite key of player_id and match_id."
+    columns:
+      
+      - name: player_id
+        tests:
+          - not_null
+
+      - name: match_id
+        tests:
+          - not_null
+      
+      - name: season_id
+        tests:
+          - not_null
+
+      - name: season_key
+        tests:
+          - not_null
+
+     
+  - name: silver_players
+    description: "put constraints on columns to ensure data quality. The primary key is a composite key of player_id and season_id."
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+
+      - name: first_name
+        tests:
+          - not_null
+
+      - name: last_name
+        tests:
+          - not_null
+
+      - name: team_id
+        tests:
+          - not_null
+
+      - name: season_id
+        tests:
+          - not_null
+
+      - name: season_key
+        tests:
+          - not_null
+
+      
+      
+  - name: silver_teams
+    description: "put constraints on columns to ensure data quality. The primary key is the composite key of team_id and season_id."
+    columns:
+      - name: team_id
+        tests:
+          - not_null
+
+      - name: team_name
+        tests:
+          - not_null
+
+      - name: season_id
+        tests:
+          - not_null
+
+      - name: season_key
+        tests:
+          - not_null
+
+    

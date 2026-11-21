@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+__init__.py
+
+# Virtual environments
+.venv
+
+# Incremental source cache
+data/.cache/
+
+# Local credentials
+.env
+logs

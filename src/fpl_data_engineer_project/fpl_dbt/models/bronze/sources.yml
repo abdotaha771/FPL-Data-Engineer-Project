@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: raw_2024_2025
+    description: "2024-2025 Premier League CSV files stored in the Databricks Unity Catalog Volume."
+    database: fpl_db
+    schema: raw
+    tables:
+      - name: matches
+        description: "Raw match data file."
+      - name: playermatchstats
+        description: "Raw player-match statistics file."
+      - name: players
+        description: "Raw player data file."
+      - name: teams
+        description: "Raw team data file."
+
+  - name: raw_2025_2026
+    description: "2025-2026 Premier League CSV files stored in the Databricks Unity Catalog Volume."
+    database: fpl_db
+    schema: raw
+    tables:
+      - name: matches
+        description: "Raw match data file."
+      - name: playermatchstats
+        description: "Raw player-match statistics file."
+      - name: players
+        description: "Raw player data file."
+      - name: teams
+        description: "Raw team data file."
+
+  - name: raw_2026_2027
+    description: "2026-2027 Premier League CSV files stored in the Databricks Unity Catalog Volume."
+    database: fpl_db
+    schema: raw
+    tables:
+      - name: matches
+        description: "Raw match data file."
+      - name: playermatchstats
+        description: "Raw player-match statistics file."
+      - name: players
+        description: "Raw player data file."
+      - name: teams
+        description: "Raw team data file."

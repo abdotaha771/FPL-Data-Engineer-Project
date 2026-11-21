@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: bronze_matches
+    columns:
+      - name: season_id
+        tests:
+          - not_null
+      - name: match_id
+        tests:
+          - not_null
+          - unique
+      - name: data_upload
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
+
+  - name: bronze_playermatchstats
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+      - name: match_id
+        tests:
+          - not_null
+      - name: season_id
+        tests:
+          - not_null
+      - name: data_upload
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
+
+  - name: bronze_players
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+      - name: season_id
+        tests:
+          - not_null
+      - name: data_upload
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
+
+
+  - name: bronze_teams
+    columns:
+      - name: team_id
+        tests:
+          - not_null
+      - name: season_id
+        tests:
+          - not_null
+      - name: data_upload
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
