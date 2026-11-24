@@ -1,7 +1,7 @@
 # FPL dbt project
 
 This dbt project transforms Premier League data from CSV files in Databricks
-Volumes into a clean, tested Gold star schema.
+Volumes into a clean, tested Gold galaxy schema composed of related star schemas.
 
 It covers three seasons:
 
@@ -90,9 +90,11 @@ The main Silver tables are:
 | `silver_players` | One player in one season | `player_id`, `season_id` |
 | `silver_teams` | One team in one season | `team_id`, `season_id` |
 
-### Gold
+### Gold galaxy schema
 
-The Gold layer contains dimensions and facts for reporting and analysis.
+The Gold layer contains multiple fact tables connected through shared
+dimensions. Each fact and its dimensions form a star schema; together, the
+related stars form a galaxy schema for reporting and analysis.
 
 Dimensions:
 
@@ -127,13 +129,13 @@ The following are all Premier League players with transfers between two clubs in
 
 
 
-Facts:
+| Fact table | Grain | Star-schema dimensions |
+|---|---|---|
+| `fact_match` | One row per match | `dim_season`, `dim_date`, `dim_team_home`, `dim_team_away` |
+| `fact_team_match` | One home or away team row per match | `dim_season`, `dim_date`, `dim_team` (team and opponent roles) |
+| `fact_player_match` | One player performance row per match | `dim_season`, `dim_date`, `dim_player`, `dim_team` |
 
-- `fact_match`: one row per match.
-- `fact_team_match`: one home or away team row per match.
-- `fact_player_match`: one player performance row per match.
-
-The star schema is documented in
+The galaxy schema and its star-schema relationships are documented in
 [`gold_layer.dbml`](../../../gold_layer.dbml).
 
 ## Incremental behavior
