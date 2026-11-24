@@ -1,7 +1,5 @@
 """Upload the merged 2026-2027 FPL CSV files to a Databricks Volume."""
 
-from __future__ import annotations
-
 import argparse
 import os
 from pathlib import Path, PurePosixPath
@@ -23,7 +21,16 @@ def upload_season(volume_path: str, source_dir: Path = SOURCE_DIR) -> int:
     if not str(destination).startswith("/Volumes/"):
         raise ValueError("volume_path must be a Unity Catalog path starting with /Volumes/")
 
-    client = WorkspaceClient()
+    host = os.getenv("DATABRICKS_HOST", "").strip()
+    token = os.getenv("DATABRICKS_TOKEN", "").strip()
+    if not host:
+        raise RuntimeError("DATABRICKS_HOST is not configured")
+    if not token:
+        raise RuntimeError("DATABRICKS_TOKEN is not configured")
+    if not host.startswith(("http://", "https://")):
+        host = f"https://{host}"
+
+    client = WorkspaceClient(host=host, token=token)
     uploaded = 0
     for file_name in FILES:
         source_path = source_dir / file_name

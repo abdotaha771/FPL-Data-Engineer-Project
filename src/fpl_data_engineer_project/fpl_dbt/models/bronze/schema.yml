@@ -10,12 +10,7 @@ models:
         tests:
           - not_null
           - unique
-      - name: data_upload
-        tests:
-          - not_null
-      - name: source
-        tests:
-          - not_null
+      
 
   - name: bronze_playermatchstats
     columns:
@@ -28,12 +23,7 @@ models:
       - name: season_id
         tests:
           - not_null
-      - name: data_upload
-        tests:
-          - not_null
-      - name: source
-        tests:
-          - not_null
+      
 
   - name: bronze_players
     columns:
@@ -43,25 +33,15 @@ models:
       - name: season_id
         tests:
           - not_null
-      - name: data_upload
-        tests:
-          - not_null
-      - name: source
-        tests:
-          - not_null
+      
 
 
   - name: bronze_teams
     columns:
-      - name: team_id
+      - name: code
         tests:
           - not_null
       - name: season_id
         tests:
           - not_null
-      - name: data_upload
-        tests:
-          - not_null
-      - name: source
-        tests:
-          - not_null
+      

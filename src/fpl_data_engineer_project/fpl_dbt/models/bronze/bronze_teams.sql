@@ -1,7 +1,7 @@
 {{ config(
     materialized='incremental',
     incremental_strategy='merge',
-    unique_key=['id', 'season_id'],
+    unique_key=['code', 'season_id'],
     file_format='delta'
 ) }}
 

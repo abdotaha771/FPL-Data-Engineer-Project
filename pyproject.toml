@@ -7,16 +7,16 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "dbt-databricks",
+    "databricks-sdk",
     "python-dotenv",
     "databricks-sql-connector",
-    "streamlit",
+    "apache-airflow>=3.4.0",
 ]
 
 [project.scripts]
 fpl-data-engineer-project = "fpl_data_engineer_project.data_ingestion.premier_league_incremental_loader:main"
 fpl-upload-season-to-databricks = "fpl_data_engineer_project.data_ingestion.upload_season_to_databricks:main"
-fpl-gold-rag = "fpl_data_engineer_project.Ai.rag:main"
-fpl-gold-ai = "fpl_data_engineer_project.Ai.app:main"
+
 
 [build-system]
 requires = ["uv_build>=0.12.2,<0.13.0"]

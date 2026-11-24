@@ -33,10 +33,11 @@ models:
   fpl_dbt:
     bronze:
       +schema: bronze
-      +materialized: table
+      
     silver:
       +schema: silver
+      
     gold:
       +schema: gold
-      +materialized: table
+      
     

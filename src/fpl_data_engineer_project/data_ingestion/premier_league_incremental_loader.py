@@ -1,10 +1,10 @@
 """Incrementally download and merge Premier League gameweek CSV files."""
 
-from __future__ import annotations
-
 import argparse
 import csv
+from http.client import IncompleteRead
 import json
+import time
 import tempfile
 from pathlib import Path
 from typing import Iterable
@@ -26,20 +26,30 @@ class SourceError(RuntimeError):
 
 def _request_json(url: str) -> object:
     request = Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "fpl-data-engineer-project"})
-    try:
-        with urlopen(request, timeout=30) as response:
-            return json.load(response)
-    except (HTTPError, URLError, TimeoutError) as exc:
-        raise SourceError(f"Unable to read upstream source: {url}") from exc
+    last_error: Exception | None = None
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=60) as response:
+                return json.loads(response.read())
+        except (HTTPError, URLError, TimeoutError, IncompleteRead, ConnectionResetError) as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(2 * (attempt + 1))
+    raise SourceError(f"Unable to read upstream source after retries: {url}") from last_error
 
 
 def _request_bytes(url: str) -> bytes:
     request = Request(url, headers={"User-Agent": "fpl-data-engineer-project"})
-    try:
-        with urlopen(request, timeout=60) as response:
-            return response.read()
-    except (HTTPError, URLError, TimeoutError) as exc:
-        raise SourceError(f"Unable to download upstream file: {url}") from exc
+    last_error: Exception | None = None
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=60) as response:
+                return response.read()
+        except (HTTPError, URLError, TimeoutError, IncompleteRead, ConnectionResetError) as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(2 * (attempt + 1))
+    raise SourceError(f"Unable to download upstream file after retries: {url}") from last_error
 
 
 def _gameweek_number(name: str) -> int:
