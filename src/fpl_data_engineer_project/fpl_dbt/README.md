@@ -100,6 +100,7 @@ Dimensions:
 
 - `dim_season`: season data.
 - `dim_date`: calendar data generated from match kickoff dates.
+- `dim_gameweek`: contains the 38 Premier League gameweeks (1–38), generated independently of match data.
 - `dim_team`: team data scoped by season.
 - `dim_team_home`: home-team view of `dim_team`.
 - `dim_team_away`: away-team view of `dim_team`.
@@ -131,9 +132,9 @@ The following are all Premier League players with transfers between two clubs in
 
 | Fact table | Grain | Star-schema dimensions |
 |---|---|---|
-| `fact_match` | One row per match | `dim_season`, `dim_date`, `dim_team_home`, `dim_team_away` |
-| `fact_team_match` | One home or away team row per match | `dim_season`, `dim_date`, `dim_team` (team and opponent roles) |
-| `fact_player_match` | One player performance row per match | `dim_season`, `dim_date`, `dim_player`, `dim_team` |
+| `fact_match` | One row per match | `dim_season`, `dim_date`,`dim_gameweek`, `dim_team_home`, `dim_team_away` |
+| `fact_team_match` | One home or away team row per match | `dim_season`, `dim_date`,`dim_gameweek`, `dim_team` (team and opponent roles) |
+| `fact_player_match` | One player performance row per match | `dim_season`, `dim_date`, `dim_player`,`dim_gameweek`, `dim_team` |
 
 The galaxy schema and its star-schema relationships are documented in
 [`gold_layer.dbml`](../../../gold_layer.dbml).

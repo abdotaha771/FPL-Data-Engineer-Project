@@ -1,7 +1,8 @@
 {{ config(materialized='table', file_format='delta') }}
 
 with match_dates as (
-    select distinct date(kickoff_time) as calendar_date
+    select 
+    distinct date(kickoff_time) as calendar_date
     from {{ ref('silver_matches') }}
     where kickoff_time is not null
 ),

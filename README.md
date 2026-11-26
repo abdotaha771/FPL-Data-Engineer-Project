@@ -141,15 +141,15 @@ star-schema view, and shared dimensions connect the stars.
 - `dim_team_home`
 - `dim_team_away`
 - `dim_player`
+- `dim_gameweek`
 
 | Fact table | Grain | Star-schema dimensions |
 |---|---|---|
-| `fact_match` | One row per match | `dim_season`, `dim_date`, `dim_team_home`, `dim_team_away` |
-| `fact_team_match` | One row per team per match | `dim_season`, `dim_date`, `dim_team` (team and opponent roles) |
-| `fact_player_match` | One row per player per match | `dim_season`, `dim_date`, `dim_player`, `dim_team` |
+| `fact_match` | One row per match | `dim_season`, `dim_date`,`dim_gameweek`, `dim_team_home`, `dim_team_away` |
+| `fact_team_match` | One row per team per match | `dim_season`, `dim_date`,`dim_gameweek`, `dim_team` (team and opponent roles) |
+| `fact_player_match` | One row per player per match | `dim_season`, `dim_date`,`dim_gameweek`, `dim_player`, `dim_team` |
 
-The complete galaxy schema and its star-schema relationships are documented in
-[`gold_layer.dbml`](gold_layer.dbml).
+
 
 ## Other
 
